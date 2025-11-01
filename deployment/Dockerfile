@@ -11,13 +11,13 @@ LABEL description="API REST para gerenciamento de tarefas"
 WORKDIR /app
 
 # Copiar requirements primeiro (melhor cache do Docker)
-COPY requirements.txt .
+COPY ../src/requirements.txt .
 
 # Instalar dependências
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copiar código da aplicação
-COPY app.py .
+COPY ../src/app.py .
 
 # Variáveis de ambiente padrão (serão sobrescritas no EC2)
 ENV DB_HOST=localhost

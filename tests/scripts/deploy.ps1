@@ -35,7 +35,7 @@ docker image prune -f
 # ============================================================
 
 Write-Host "Construindo nova imagem Docker..." -ForegroundColor Yellow
-docker build -t tasks-api:latest .
+docker build -t tasks-api:latest -f deployment/Dockerfile .
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "Imagem construída com sucesso!" -ForegroundColor Green

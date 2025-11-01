@@ -29,7 +29,9 @@ services:
 
   # API Flask
   api:
-    build: .
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
     container_name: tasks-api
     ports:
       - "8080:8080"

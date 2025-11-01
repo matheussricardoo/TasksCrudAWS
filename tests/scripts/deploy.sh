@@ -40,7 +40,7 @@ docker image prune -f
 # ============================================================
 
 echo "Construindo nova imagem Docker..."
-docker build -t tasks-api:latest .
+docker build -t tasks-api:latest -f deployment/Dockerfile .
 
 if [ $? -eq 0 ]; then
     echo "Imagem construída com sucesso!"
