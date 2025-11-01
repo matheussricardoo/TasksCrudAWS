@@ -455,7 +455,7 @@ This repository contains a complete step-by-step guide to replicate the entire i
 </div>
 
 <p align="center">
-  <a href="GUIA_IMPLANTACAO.md">
+  <a href="docs/GUIA_IMPLANTACAO.md">
     <img src="https://img.shields.io/badge/📘_GUIA_COMPLETO-FF6600?style=for-the-badge&logo=readthedocs&logoColor=white" alt="Complete Guide"/>
   </a>
 </p>
@@ -514,29 +514,32 @@ curl http://localhost:8080/tasks
 ```
 TasksCrudAWS/
 │
-├── app.py                      # API Flask completa (CRUD + validações)
-├── lambda_report.py            # Função Lambda para relatórios
-├── requirements.txt            # Dependências Python
-├── Dockerfile                  # Container da API Flask
-├── docker-compose.yml          # Ambiente local (MySQL + API)
+├── src/                        # Código-fonte da aplicação
+│   ├── app.py                  # API Flask completa (CRUD + validações)
+│   ├── lambda_report.py        # Função Lambda para relatórios
+│   └── requirements.txt        # Dependências Python
+│
+├── deployment/                 # Arquivos de implantação
+│   ├── Dockerfile              # Container da API Flask
+│   ├── docker-compose.yml      # Ambiente local (MySQL + API)
+│   └── sql/
+│       └── schema.sql          # Schema do banco MySQL
+│
+├── tests/                      # Scripts de teste e deploy
+│   └── scripts/
+│       ├── deploy.sh           # Script de deploy (Linux/Mac)
+│       ├── deploy.ps1          # Script de deploy (Windows)
+│       ├── test-api.sh         # Testes automatizados (Linux/Mac)
+│       ├── test-api.ps1        # Testes automatizados (Windows)
+│       └── test-api-simple.ps1 # Testes simples (Windows)
+│
+├── docs/                       # Documentação
+│   └── REFERENCIA_API.md       # Documentação completa da API
+│
 ├── .env.example                # Template de variáveis de ambiente
 ├── .gitignore                  # Arquivos ignorados pelo Git
 ├── tasks-key.pem               # Chave SSH do EC2 (não commitado)
-│
-├── sql/
-│   └── schema.sql              # Schema do banco MySQL
-│
-├── scripts/
-│   ├── deploy.sh               # Script de deploy (Linux/Mac)
-│   ├── deploy.ps1              # Script de deploy (Windows)
-│   ├── test-api.sh             # Testes automatizados (Linux/Mac)
-│   ├── test-api.ps1            # Testes automatizados (Windows)
-│   └── test-api-simple.ps1     # Testes simples (Windows)
-│
-├── docs/
-│   └── REFERENCIA_API.md       # Documentação completa da API
-│
-├── GUIA_IMPLANTACAO.md         # Guia completo de implantação
+├── docs/GUIA_IMPLANTACAO.md         # Guia completo de implantação
 ├── README.md                   # Este arquivo
 └── LICENSE                     # Licença MIT
 ```
@@ -547,10 +550,10 @@ TasksCrudAWS/
 
 | File / Arquivo | Purpose EN | Propósito PT-BR |
 |:---:|:---|:---|
-| `app.py` | API code | Código da API |
-| `lambda_report.py` | Lambda code | Código da Lambda |
-| `Dockerfile` + `docker-compose.yml` | Containerization | Containerização |
-| `sql/schema.sql` | Database schema | Schema do banco |
+| `src/app.py` | API code | Código da API |
+| `src/lambda_report.py` | Lambda code | Código da Lambda |
+| `deployment/Dockerfile` + `deployment/docker-compose.yml` | Containerization | Containerização |
+| `deployment/sql/schema.sql` | Database schema | Schema do banco |
 | `docs/GUIA_IMPLANTACAO.md` | Implementation guide | Guia de implementação |
 
 </div>
@@ -561,7 +564,7 @@ TasksCrudAWS/
 
 | Documento / Document | Descrição PT-BR | Description EN |
 |:---:|:---|:---|
-| [GUIA_IMPLANTACAO.md](GUIA_IMPLANTACAO.md) | Guia completo de replicação | Complete replication guide |
+| [docs/GUIA_IMPLANTACAO.md](docs/GUIA_IMPLANTACAO.md) | Guia completo de replicação | Complete replication guide |
 | [REFERENCIA_API.md](docs/REFERENCIA_API.md) | Documentação da API REST | REST API documentation |
 
 </div>
