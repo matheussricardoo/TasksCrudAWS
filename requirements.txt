@@ -1,0 +1,15 @@
+# Dependências do projeto Tasks CRUD API
+# Python 3.9+
+
+# Framework web
+Flask==3.0.0
+flask-cors==4.0.0
+
+# Banco de dados MySQL
+PyMySQL==1.1.0
+
+# Servidor WSGI para produção
+gunicorn==21.2.0
+
+# Utilitários
+python-dotenv==1.0.0
