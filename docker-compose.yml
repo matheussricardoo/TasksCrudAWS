@@ -1,0 +1,47 @@
+# Docker Compose - Para testes locais
+# Execute: docker-compose up -d
+# Acesse: http://localhost:8080
+# Nota: MySQL na porta 3307 (para evitar conflito com instalação local)
+
+services:
+  # Banco de dados MySQL (simula RDS)
+  mysql:
+    image: mysql:8.0
+    container_name: tasks-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: tasks_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: senha123
+    ports:
+      - "3307:3306"  # Usando porta 3307 localmente para evitar conflito
+    volumes:
+      # Inicializar banco com schema
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      # Persistir dados (opcional)
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "admin", "-psenha123"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+  # API Flask
+  api:
+    build: .
+    container_name: tasks-api
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: mysql
+      DB_USER: admin
+      DB_PASSWORD: senha123
+      DB_NAME: tasks_db
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
