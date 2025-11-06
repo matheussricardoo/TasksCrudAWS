@@ -63,73 +63,11 @@ git --version
 aws --version
 ```
 
-## Fase 1: Banco de Dados RDS MySQL
+## Fase 1: Instância EC2 com Docker
 
-### Passo 1.1: Criar Instância RDS
+### Passo 1.1: Lançar Instância EC2
 
-1. Acessar Console AWS → RDS
-2. Clicar em **Criar banco de dados**
-3. Configurar:
-   - **Mecanismo**: MySQL 8.0
-   - **Modelo**: Free tier (ou Produção para uso real)
-   - **Instância DB**: db.t3.micro
-   - **Nome de usuário mestre**: `admin`
-   - **Senha mestre**: Criar senha forte
-   - **Nome do banco**: `tasks_db`
-
-4. Configuração de Rede:
-   - **VPC**: Padrão ou personalizada
-   - **Grupo de sub-rede**: Padrão
-   - **Acesso público**: Não
-   - **Grupo de segurança VPC**: Criar novo ou usar existente
-
-5. Configuração Adicional:
-   - **Nome do banco inicial**: `tasks_db`
-   - **Retenção de backup**: 7 dias (recomendado)
-   - **Monitoramento**: Habilitar Enhanced Monitoring
-
-6. Clicar em **Criar banco de dados**
-7. Aguardar até o status mostrar **Disponível**
-8. Copiar **Endpoint** (ex: `tasks-db.xxxxx.us-east-1.rds.amazonaws.com`)
-
-### Passo 1.2: Configurar Security Group
-
-1. Navegar para EC2 → Security Groups
-2. Encontrar o security group do RDS
-3. Editar regras de entrada:
-   - **Tipo**: MySQL/Aurora
-   - **Protocolo**: TCP
-   - **Porta**: 3306
-   - **Origem**: Security group do EC2 (será criado no próximo passo)
-
-### Passo 1.3: Criar Schema do Banco
-
-Após o EC2 estar rodando (próxima fase), conectar e criar schema:
-
-```bash
-# Conectar ao RDS do EC2
-mysql -h seu-endpoint-rds.us-east-1.rds.amazonaws.com -u admin -p
-
-# Criar schema
-CREATE DATABASE IF NOT EXISTS tasks_db;
-USE tasks_db;
-
-CREATE TABLE tasks (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(200) NOT NULL,
-    description TEXT,
-    status ENUM('pending', 'in_progress', 'completed') DEFAULT 'pending',
-    priority ENUM('low', 'medium', 'high') DEFAULT 'medium',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-```
-
-## Fase 2: Instância EC2 com Docker
-
-### Passo 2.1: Lançar Instância EC2
-
-1. Acessar EC2 → Instâncias → Executar instância
+1. Acessar Console AWS → EC2 → Instâncias → Executar instância
 2. Configurar:
    - **Nome**: tasks-api-server
    - **AMI**: Amazon Linux 2
@@ -144,8 +82,9 @@ CREATE TABLE tasks (
 4. Clicar em **Executar instância**
 5. Aguardar até **Estado da instância** mostrar **Executando**
 6. Copiar **Endereço IPv4 público**
+7. **Importante**: Copiar também o **ID do Security Group** criado (será usado para configurar RDS na próxima fase)
 
-### Passo 2.2: Conectar ao EC2
+### Passo 1.2: Conectar ao EC2
 
 ```bash
 # Definir permissões corretas para o arquivo de chave
@@ -155,7 +94,7 @@ chmod 400 tasks-key.pem
 ssh -i "tasks-key.pem" ec2-user@SEU-IP-PUBLICO-EC2
 ```
 
-### Passo 2.3: Instalar Docker
+### Passo 1.3: Instalar Docker
 
 ```bash
 # Atualizar sistema
@@ -182,7 +121,7 @@ ssh -i "tasks-key.pem" ec2-user@SEU-IP-PUBLICO-EC2
 docker --version
 ```
 
-### Passo 2.4: Clonar Repositório
+### Passo 1.4: Clonar Repositório
 
 ```bash
 # Clonar projeto
@@ -190,28 +129,123 @@ git clone https://github.com/matheussricardoo/TasksCrudAWS.git
 cd TasksCrudAWS
 ```
 
-### Passo 2.5: Configurar Variáveis de Ambiente
+**Observação**: Não configure as variáveis de ambiente ainda — faremos isso após criar o RDS na próxima fase.
+
+## Fase 2: Banco de Dados RDS MySQL
+
+### Passo 2.1: Criar Instância RDS
+
+1. Acessar Console AWS → RDS
+2. Clicar em **Criar banco de dados**
+3. Configurar:
+   - **Mecanismo**: MySQL 8.0
+   - **Modelo**: Free tier (ou Produção para uso real)
+   - **Instância DB**: db.t3.micro
+   - **Nome de usuário mestre**: `admin`
+   - **Senha mestre**: Criar senha forte e **anotar** (será usada no .env)
+   - **Nome do banco inicial**: `tasks_db`
+
+4. Configuração de Rede:
+   - **VPC**: Mesma VPC da instância EC2
+   - **Grupo de sub-rede**: Padrão
+   - **Acesso público**: **Não** (importante para segurança)
+   - **Grupo de segurança VPC**: Criar novo
+
+5. Configuração Adicional:
+   - **Nome do banco inicial**: `tasks_db`
+   - **Retenção de backup**: 7 dias (recomendado)
+   - **Monitoramento**: Habilitar Enhanced Monitoring
+
+6. Clicar em **Criar banco de dados**
+7. Aguardar até o status mostrar **Disponível** (pode levar 5-10 minutos)
+8. Copiar **Endpoint** (ex: `tasks-db.xxxxx.us-east-1.rds.amazonaws.com`) — **anote** para usar no .env
+
+### Passo 2.2: Configurar Security Group do RDS
+
+1. Console AWS → EC2 → Security Groups
+2. Localizar o security group do RDS (criado automaticamente)
+3. Clicar em **Editar regras de entrada**
+4. Adicionar regra:
+   - **Tipo**: MySQL/Aurora
+   - **Protocolo**: TCP
+   - **Porta**: 3306
+   - **Origem**: Selecionar o **Security Group do EC2** (copiar ID do SG do EC2 criado na Fase 1)
+   - **Descrição**: "Permitir EC2 acessar RDS"
+
+5. Salvar regras
+
+### Passo 2.3: Configurar Variáveis de Ambiente no EC2
+
+Agora que o RDS está criado, volte ao EC2 e configure o arquivo `.env`:
 
 ```bash
+# SSH para EC2 (se ainda não estiver conectado)
+ssh -i "tasks-key.pem" ec2-user@SEU-IP-PUBLICO-EC2
+
+# Entrar no diretório do projeto
+cd TasksCrudAWS
+
 # Criar arquivo .env
 nano .env
 ```
 
-Adicionar o seguinte conteúdo:
+Adicionar o seguinte conteúdo (substituir pelos valores reais):
 
 ```env
 DB_HOST=seu-endpoint-rds.us-east-1.rds.amazonaws.com
 DB_PORT=3306
 DB_USER=admin
-DB_PASSWORD=sua-senha-db
+DB_PASSWORD=sua-senha-db-anotada
 DB_NAME=tasks_db
 ```
 
 Salvar e sair (Ctrl+O, Enter, Ctrl+X)
 
-### Passo 2.6: Construir e Executar Container Docker
+### Passo 2.4: Criar Schema do Banco de Dados
+
+Conectar ao RDS a partir do EC2 e criar a tabela:
 
 ```bash
+# Instalar cliente MySQL no EC2 (se ainda não estiver instalado)
+sudo yum install mysql -y
+
+# Conectar ao RDS
+mysql -h seu-endpoint-rds.us-east-1.rds.amazonaws.com -u admin -p
+# Digite a senha quando solicitado
+
+# Criar schema (cole os comandos SQL)
+CREATE DATABASE IF NOT EXISTS tasks_db;
+USE tasks_db;
+
+CREATE TABLE tasks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    description TEXT,
+    status ENUM('pending', 'in_progress', 'completed') DEFAULT 'pending',
+    priority ENUM('low', 'medium', 'high') DEFAULT 'medium',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+# Inserir dados de exemplo (opcional)
+INSERT INTO tasks (title, description, status, priority) VALUES
+('Configurar AWS Infrastructure', 'Criar RDS, EC2, Security Groups e configurações de rede', 'completed', 'high'),
+('Desenvolver API REST', 'Implementar endpoints CRUD em Flask com validações', 'completed', 'high'),
+('Criar função Lambda', 'Desenvolver Lambda para geração de relatórios estatísticos', 'in_progress', 'high');
+
+# Verificar dados inseridos
+SELECT * FROM tasks;
+
+# Sair do MySQL
+exit;
+```
+
+### Passo 2.5: Construir e Executar Container Docker
+
+Agora que o RDS está configurado e o `.env` criado, podemos construir e rodar o container:
+
+```bash
+# Ainda no diretório TasksCrudAWS no EC2
 # Construir imagem Docker
 docker build -t tasks-api:latest .
 
@@ -226,11 +260,11 @@ docker run -d \
 # Verificar se o container está rodando
 docker ps
 
-# Checar logs
+# Checar logs (verificar conexão com RDS)
 docker logs tasks-api
 ```
 
-### Passo 2.7: Testar API
+### Passo 2.6: Testar API
 
 ```bash
 # Testar do EC2
@@ -244,8 +278,16 @@ Resposta esperada:
 ```json
 {
   "success": true,
-  "count": 0,
-  "data": []
+  "count": 3,
+  "data": [
+    {
+      "id": 1,
+      "title": "Configurar AWS Infrastructure",
+      "status": "completed",
+      ...
+    },
+    ...
+  ]
 }
 ```
 
