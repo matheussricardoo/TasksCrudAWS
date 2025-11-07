@@ -424,18 +424,87 @@ def lambda_handler(event, context):
 
 Resposta esperada:
 ```json
-{
-  "statusCode": 200,
-  "body": {
-    "success": true,
-    "report": {
-      "total_tasks": 9,
-      "by_status": {...},
-      "by_priority": {...},
-      "completion_rate": 22.22
-    }
+[
+  {
+    "category": "doce",
+    "created_at": "Thu, 06 Nov 2025 23:44:25 GMT",
+    "flavor": "chocolate",
+    "id": 1,
+    "name": "Brigadeiro Gourmet",
+    "price": 3.5,
+    "stock": 25,
+    "updated_at": "Thu, 06 Nov 2025 23:44:25 GMT"
+  },
+  {
+    "category": "doce",
+    "created_at": "Thu, 06 Nov 2025 23:44:25 GMT",
+    "flavor": "coco",
+    "id": 2,
+    "name": "Beijinho Premium",
+    "price": 3.5,
+    "stock": 20,
+    "updated_at": "Thu, 06 Nov 2025 23:44:25 GMT"
+  },
+  {
+    "category": "torta",
+    "created_at": "Thu, 06 Nov 2025 23:44:25 GMT",
+    "flavor": "chocolate",
+    "id": 3,
+    "name": "Torta de Chocolate",
+    "price": 45.0,
+    "stock": 5,
+    "updated_at": "Thu, 06 Nov 2025 23:44:25 GMT"
+  },
+  {
+    "category": "torta",
+    "created_at": "Thu, 06 Nov 2025 23:44:25 GMT",
+    "flavor": "morango",
+    "id": 4,
+    "name": "Torta de Morango",
+    "price": 48.0,
+    "stock": 3,
+    "updated_at": "Thu, 06 Nov 2025 23:44:25 GMT"
+  },
+  {
+    "category": "doce",
+    "created_at": "Thu, 06 Nov 2025 23:44:25 GMT",
+    "flavor": "coco",
+    "id": 5,
+    "name": "Quindim",
+    "price": 4.0,
+    "stock": 15,
+    "updated_at": "Thu, 06 Nov 2025 23:44:25 GMT"
+  },
+  {
+    "category": "doce",
+    "created_at": "Thu, 06 Nov 2025 23:44:25 GMT",
+    "flavor": "caramelo",
+    "id": 6,
+    "name": "Pudim de Leite",
+    "price": 35.0,
+    "stock": 8,
+    "updated_at": "Thu, 06 Nov 2025 23:44:25 GMT"
+  },
+  {
+    "category": "torta",
+    "created_at": "Thu, 06 Nov 2025 23:44:25 GMT",
+    "flavor": "lim\u00e3o",
+    "id": 7,
+    "name": "Torta de Lim\u00e3o",
+    "price": 42.0,
+    "stock": 2,
+    "updated_at": "Thu, 06 Nov 2025 23:44:25 GMT"
+  },
+  {
+    "category": "doce",
+    "created_at": "Thu, 06 Nov 2025 23:44:25 GMT",
+    "flavor": "chocolate",
+    "id": 8,
+    "name": "Trufa de Chocolate",
+    "price": 2.5,
+    "stock": 50,
+    "updated_at": "Thu, 06 Nov 2025 23:44:25 GMT"
   }
-}
 ```
 
 ## Fase 4: API Gateway
