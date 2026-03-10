@@ -1,5 +1,3 @@
-# TasksCrudAWS
-
 <div align="center">
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=FF6600&height=200&section=header&text=TasksCrudAWS&fontSize=50&fontColor=fff&animation=twinkling&fontAlignY=40&desc=Flask%20|%20API%20Gateway%20|%20Lambda%20|%20RDS%20MySQL%20|%20Docker&descAlignY=60&descSize=18">
