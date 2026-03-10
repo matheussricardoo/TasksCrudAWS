@@ -1,26 +1,26 @@
+# TasksCrudAWS
+
 <div align="center">
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=FF6600&height=200&section=header&text=TasksCrudAWS&fontSize=50&fontColor=fff&animation=twinkling&fontAlignY=40&desc=Flask%20|%20API%20Gateway%20|%20Lambda%20|%20RDS%20MySQL%20|%20Docker&descAlignY=60&descSize=18">
 
 <p align="center">
-  <i>Sistema completo de gerenciamento de tarefas (To-Do List) construído com arquitetura de microsserviços na AWS, implementando as melhores práticas de Cloud Computing.</i>
-</p>
-
-<p align="center">
   <i>Complete task management system (To-Do List) built with microservices architecture on AWS, implementing Cloud Computing best practices.</i>
 </p>
 
-### Projeto Integrador – Cloud Developing 2025/2
+</div>
+
+### Cloud Developing 2025/2
 
 <div align="left">
 
-**Grupo:**
-1. Matheus Ricardo - Desenvolvimento, Infraestrutura AWS e Documentação
-2. Priscila Herculano - Desenvolvimento, Testes e Infraestrutura AWS
+**Team:**
+1. Matheus Ricardo - Development, AWS Infrastructure, and Documentation
+2. Priscila Herculano - Development, Testing, and AWS Infrastructure
 
 </div>
 
-### Technologies | Tecnologias
+### Technologies
 
 <div align="center">
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
@@ -37,25 +37,17 @@
 
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/Flask-3.0-green.svg)](https://flask.palletsprojects.com/)
-[![AWS](https://img.shields.io/badge/AWS-Implantado-orange.svg)](https://aws.amazon.com/)
-[![Docker](https://img.shields.io/badge/Docker-Containerizado-blue.svg)](https://www.docker.com/)
+[![AWS](https://img.shields.io/badge/AWS-Deployed-orange.svg)](https://aws.amazon.com/)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-blue.svg)](https://www.docker.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 </div>
 
-## Visão Geral
+## Overview
 
 <div align="left">
 
-**PT-BR:** Sistema de gerenciamento de tarefas (To-Do List) construído com arquitetura completa na nuvem AWS, implementando as melhores práticas de computação em nuvem.
-
-**Domínio:** Gerenciamento de Tarefas (Task Management)
-
-**Por que foi escolhido:** O domínio de gerenciamento de tarefas foi selecionado por ser amplamente compreensível, relevante para diversos contextos profissionais e ideal para demonstrar operações CRUD completas. Além disso, permite implementar funcionalidades adicionais como relatórios estatísticos e diferentes níveis de prioridade, showcasing integrações entre múltiplos serviços AWS.
-
-**O que o CRUD faz:** Permite criar, listar, atualizar e deletar tarefas com atributos como título, descrição, status (pendente, em progresso, concluída), prioridade (baixa, média, alta) e timestamps automáticos. Inclui também um endpoint de relatórios que gera estatísticas agregadas sobre as tarefas cadastradas.
-
-**EN:** Task management system (To-Do List) built with complete AWS cloud architecture, implementing cloud computing best practices.
+Task management system (To-Do List) built with complete AWS cloud architecture, implementing cloud computing best practices.
 
 **Domain:** Task Management
 
@@ -65,139 +57,124 @@
 
 </div>
 
-### Principais Características | Key Features
+### Key Features
 
 <div align="center">
 
-| Feature / Recurso | Description EN | Descrição PT-BR |
-|:---:|:---|:---|
-| **Backend Containerizado** | EC2 + Docker | EC2 + Docker |
-| **Banco de Dados Gerenciado** | RDS MySQL (Private Subnet) | RDS MySQL (Subnet Privada) |
-| **API Gateway** | Unified entry point | Ponto de entrada unificado |
-| **Função Serverless** | Lambda for reports | Lambda para relatórios |
-| **Production-Ready** | Secure, scalable, replicable | Segura, escalável e replicável |
+| Feature | Description |
+|:---:|:---|
+| **Containerized Backend** | EC2 + Docker |
+| **Managed Database** | RDS MySQL (Private Subnet) |
+| **API Gateway** | Unified entry point |
+| **Serverless Function** | Lambda for reports |
+| **Production-Ready** | Secure, scalable, replicable |
 
 </div>
 
-### Infraestrutura Implantada | Deployed Infrastructure
+### Deployed Infrastructure
 
 <div align="center">
 
-| Component / Componente | URL / Endpoint | Type / Tipo |
+| Component | URL / Endpoint | Type |
 |:---:|:---|:---:|
 | **API Gateway** | `https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod` | REST API |
-| **Backend EC2** | `http://SEU-IP-PUBLICO:8080` | Flask + Docker |
+| **Backend EC2** | `http://YOUR-PUBLIC-IP:8080` | Flask + Docker |
 | **RDS MySQL** | `tasks-db.xxxxxxxxxx.us-east-1.rds.amazonaws.com` | Private DB |
 | **Lambda Function** | `tasks-report` | Python 3.9 |
 
 </div>
 
-## Arquitetura | Architecture
+## Architecture
 
 <div align="left">
 
-**EN:** 4-layer cloud architecture on AWS:
+**4-layer cloud architecture on AWS:**
 1. **Gateway Layer** - API Gateway (unified entry point)
 2. **Compute Layer** - EC2 + Docker & Lambda (microservices)
 3. **Data Layer** - RDS MySQL (private subnet)
 4. **Security Layer** - Security Groups + IAM Roles
 
-**PT-BR:** Arquitetura em nuvem de 4 camadas na AWS:
-1. **Camada de Gateway** - API Gateway (entrada unificada)
-2. **Camada de Computação** - EC2 + Docker & Lambda (microsserviços)
-3. **Camada de Dados** - RDS MySQL (subnet privada)
-4. **Camada de Segurança** - Security Groups + IAM Roles
-
 </div>
 
 <div align="center">
 
-### Architecture Diagram | Diagrama de Arquitetura
+### Architecture Diagram
 
 </div>
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
-│                            AWS CLOUD                                  │
-│                                                                       │
+│                            AWS CLOUD                                │
 │  ┌────────────────────────────────────────────────────────────────┐  │
-│  │                     API GATEWAY (REST API)                      │  │
-│  │     https://xxxxxxxxxx.execute-api.us-east-1...amazonaws.com   │  │
-│  │                                                                 │  │
-│  │   ┌─────────────────────┐      ┌──────────────────────┐      │  │
-│  │   │ Recursos CRUD       │      │ Recurso Relatório    │      │  │
-│  │   │ /tasks              │      │ /report              │      │  │
-│  │   │ /tasks/{id}         │      │                      │      │  │
-│  │   └──────────┬──────────┘      └──────────┬───────────┘      │  │
+│  │                     API GATEWAY (REST API)                    │  │
+│  │     https://xxxxxxxxxx.execute-api.us-east-1...amazonaws.com  │  │
+│  │   ┌─────────────────────┐      ┌──────────────────────┐       │  │
+│  │   │ CRUD Resources      │      │ Report Resource      │       │  │
+│  │   │ /tasks              │      │ /report              │       │  │
+│  │   │ /tasks/{id}         │      │                      │       │  │
+│  │   └──────────┬──────────┘      └──────────┬───────────┘       │  │
 │  └──────────────┼────────────────────────────┼──────────────────┘  │
-│                 │                             │                      │
-│                 │ Proxy HTTP                  │ Integração Lambda    │
-│                 │                             │                      │
+│                 │                             │                    │
+│                 │ HTTP Proxy                  │ Lambda Integration │
+│                 │                             │                    │
 │       ┌─────────▼──────────┐        ┌────────▼─────────┐           │
-│       │                    │        │                  │            │
-│       │   Instância EC2    │◄───────┤  Função Lambda   │            │
-│       │  (t2.micro)        │  HTTP  │  tasks-report    │            │
-│       │                    │  GET   │  (Python 3.9)    │            │
-│       │  ┌──────────────┐  │        │                  │            │
-│       │  │   Docker     │  │        │  Serverless      │            │
-│       │  │              │  │        │  Estatísticas    │            │
-│       │  │  API Flask   │  │        │  Timeout 30s     │            │
-│       │  │  Python 3.9  │  │        └──────────────────┘            │
-│       │  │  Porta 8080  │  │                                         │
-│       │  └──────┬───────┘  │                                         │
-│       │         │          │                                         │
-│       └─────────┼──────────┘                                         │
-│                 │                                                     │
-│                 │ Protocolo MySQL                                     │
-│                 │                                                     │
+│       │   EC2 Instance     │◄───────┤  Lambda Function │           │
+│       │  (t2.micro)        │  HTTP  │  tasks-report    │           │
+│       │   Docker           │  GET   │  (Python 3.9)    │           │
+│       │   Flask API        │        │  Serverless      │           │
+│       │   Python 3.9       │        │  Statistics      │           │
+│       │   Port 8080        │        │  Timeout 30s     │           │
+│       └──────┬───────┘     │        └──────────────────┘           │
+│              │             │                                        │
+│              │             │                                        │
+│              │ MySQL Protocol                                       │
+│              │                                                     │
 │       ┌─────────▼──────────────────────┐                            │
-│       │   RDS MySQL (db.t3.micro)      │  SUBNET PRIVADA            │
+│       │   RDS MySQL (db.t3.micro)      │  PRIVATE SUBNET            │
 │       │   tasks-db.*.rds.amazonaws.com │                            │
-│       │                                 │  Sem acesso público        │
-│       │   Database: tasks_db            │                            │
-│       │   9 tarefas armazenadas         │  Acesso apenas do EC2      │
-│       └─────────────────────────────────┘                            │
-│                                                                       │
-└───────────────────────────────────────────────────────────────────────┘
+│       │   Database: tasks_db           │                            │
+│       │   9 tasks stored               │  Access only from EC2      │
+│       └────────────────────────────────┘                            │
+└──────────────────────────────────────────────────────────────────────┘
 ```
 
-### Componentes | Components
+### Components
 
 <div align="center">
 
-| Camada / Layer | Serviço / Service | Descrição EN | Descrição PT-BR |
-|:---:|:---:|:---|:---|
-| **Backend** | EC2 + Docker | REST API Flask (Python 3.9) | API REST Flask (Python 3.9) |
-| **Database** | Amazon RDS | MySQL (db.t3.micro) private subnet | MySQL (db.t3.micro) subnet privada |
-| **Gateway** | API Gateway | CRUD routes → EC2 · `/report` → Lambda | Rotas CRUD → EC2 · `/report` → Lambda |
-| **Serverless** | AWS Lambda | Consumes API, generates JSON statistics | Consome a API, gera estatísticas JSON |
-| **CI/CD** | Deploy Scripts | Automated deployment via SSH | Deploy automatizado via SSH |
+| Layer | Service | Description |
+|:---:|:---:|:---|
+| **Backend** | EC2 + Docker | REST API Flask (Python 3.9) |
+| **Database** | Amazon RDS | MySQL (db.t3.micro) private subnet |
+| **Gateway** | API Gateway | CRUD routes → EC2 · `/report` → Lambda |
+| **Serverless** | AWS Lambda | Consumes API, generates JSON statistics |
+| **CI/CD** | Deploy Scripts | Automated deployment via SSH |
 
-**Status:** Todos os componentes ativos e funcionando / All components active and working
+**Status:** All components active and working
 
 </div>
 
-### Implementação de Segurança | Security Implementation
+### Security Implementation
 
 <div align="center">
 
-| Security Feature / Recurso de Segurança | Description EN | Descrição PT-BR |
-|:---:|:---|:---|
-| **Private RDS** | Not accessible from Internet | Não acessível pela Internet |
-| **Security Groups** | Only EC2 can access RDS | Apenas EC2 pode acessar RDS |
-| **API Gateway Proxy** | Backend not directly exposed | Backend não exposto diretamente |
-| **CORS Enabled** | Controlled by headers | Controlado por headers |
-| **Environment Variables** | No hardcoded credentials | Sem credenciais hardcoded |
+| Security Feature | Description |
+|:---:|:---|
+| **Private RDS** | Not accessible from Internet |
+| **Security Groups** | Only EC2 can access RDS |
+| **API Gateway Proxy** | Backend not directly exposed |
+| **CORS Enabled** | Controlled by headers |
+| **Environment Variables** | No hardcoded credentials |
 
 </div>
 
-## Como Rodar Localmente | How to Run Locally
+## How to Run Locally
 
-### Pré-requisitos | Prerequisites
+### Prerequisites
 
 <div align="center">
 
-| Tool / Ferramenta | Version / Versão | Purpose / Propósito |
+| Tool | Version | Purpose |
 |:---:|:---:|:---:|
 | **Docker** | Latest | Container runtime |
 | **Git** | Latest | Version control |
@@ -205,29 +182,10 @@
 
 </div>
 
-### Passo a Passo | Step by Step
+### Step by Step
 
 <div align="left">
 
-**PT-BR:**
-
-```bash
-# 1. Clonar repositório
-git clone https://github.com/matheussricardoo/TasksCrudAWS.git
-cd TasksCrudAWS
-
-# 2. Configurar variáveis de ambiente
-cp .env.example .env
-# Edite o arquivo .env com suas credenciais do RDS
-
-# 3. Iniciar ambiente com Docker Compose
-docker-compose up --build
-
-# 4. API estará disponível em:
-# http://localhost:8080
-```
-
-**EN:**
 ```bash
 # 1. Clone repository
 git clone https://github.com/matheussricardoo/TasksCrudAWS.git
@@ -246,26 +204,10 @@ docker-compose up --build
 
 </div>
 
-### Testar API Localmente | Test API Locally
+### Test API Locally
 
 <div align="left">
 
-**PT-BR:**
-
-```bash
-# Health check
-curl http://localhost:8080/health
-
-# Listar tarefas
-curl http://localhost:8080/tasks
-
-# Criar tarefa
-curl -X POST http://localhost:8080/tasks \
-  -H "Content-Type: application/json" \
-  -d '{"title":"Teste Local","priority":"high"}'
-```
-
-**EN:**
 ```bash
 # Health check
 curl http://localhost:8080/health
@@ -281,43 +223,43 @@ curl -X POST http://localhost:8080/tasks \
 
 </div>
 
-## 4. 📡 Endpoints da API | API Endpoints
+## 4. API Endpoints
 
-### 🌐 URLs Base | Base URLs
+### Base URLs
 
 <div align="center">
 
-| Environment / Ambiente | URL | Status |
+| Environment | URL | Status |
 |:---:|:---|:---:|
 | **Production** | `https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod` | Active |
 | **Local Development** | `http://localhost:8080` | Local |
 
 </div>
 
-### Recursos Disponíveis | Available Resources
+### Available Resources
 
 <div align="center">
 
-| Método / Method | Endpoint | Descrição PT-BR | Description EN | Integração / Integration |
-|:---:|:---|:---|:---|:---:|
-| `GET` | `/tasks` | Listar todas as tarefas | List all tasks | HTTP → EC2 |
-| `GET` | `/tasks/{id}` | Buscar tarefa específica | Get specific task | HTTP → EC2 |
-| `POST` | `/tasks` | Criar nova tarefa | Create new task | HTTP → EC2 |
-| `PUT` | `/tasks/{id}` | Atualizar tarefa existente | Update existing task | HTTP → EC2 |
-| `DELETE` | `/tasks/{id}` | Deletar tarefa | Delete task | HTTP → EC2 |
-| `GET` | `/report` | Relatório estatístico | Statistical report | Lambda |
+| Method | Endpoint | Description | Integration |
+|:---:|:---|:---|:---:|
+| `GET` | `/tasks` | List all tasks | HTTP → EC2 |
+| `GET` | `/tasks/{id}` | Get specific task | HTTP → EC2 |
+| `POST` | `/tasks` | Create new task | HTTP → EC2 |
+| `PUT` | `/tasks/{id}` | Update existing task | HTTP → EC2 |
+| `DELETE` | `/tasks/{id}` | Delete task | HTTP → EC2 |
+| `GET` | `/report` | Statistical report | Lambda |
 
 </div>
 
-### Exemplos de Uso | Usage Examples
+### Usage Examples
 
-#### Listar Todas as Tarefas
+#### List All Tasks
 
 ```bash
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/tasks
 ```
 
-**Resposta:**
+**Response:**
 ```json
 {
   "success": true,
@@ -336,26 +278,26 @@ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/tasks
 }
 ```
 
-#### Criar Nova Tarefa
+#### Create New Task
 
 ```bash
 curl -X POST https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/tasks \
   -H "Content-Type: application/json" \
   -d '{
-    "title": "Implementar Pipeline CI/CD",
-    "description": "Configurar CodePipeline e CodeBuild",
+    "title": "Implement CI/CD Pipeline",
+    "description": "Configure CodePipeline and CodeBuild",
     "status": "pending",
     "priority": "medium"
   }'
 ```
 
-#### Relatório Estatístico (Lambda)
+#### Statistical Report (Lambda)
 
 ```bash
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/report
 ```
 
-**Resposta:**
+**Response:**
 ```json
 {
   "statusCode": 200,
@@ -380,35 +322,32 @@ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/report
 }
 ```
 
-> **Nota PT-BR**: O endpoint `/report` é processado por uma função Lambda que faz uma requisição HTTP GET para a API do EC2 e calcula estatísticas agregadas. Não acessa o RDS diretamente.
+> **Note:** The `/report` endpoint is processed by a Lambda function that makes an HTTP GET request to the EC2 API and calculates aggregated statistics. Does not access RDS directly.
 
-> **Note EN**: The `/report` endpoint is processed by a Lambda function that makes an HTTP GET request to the EC2 API and calculates aggregated statistics. Does not access RDS directly.
-
-## Resultados dos Testes | Test Results
+## Test Results
 
 <div align="center">
 
-### Status dos Testes | Test Status
+### Test Status
 
-**Todos os endpoints foram testados e estão funcionando corretamente!**  
 **All endpoints have been tested and are working correctly!**
 
 </div>
 
 <div align="center">
 
-| Teste / Test | Endpoint | Método / Method | Status | Resultado EN | Resultado PT-BR |
-|:---:|:---:|:---:|:---:|:---|:---|
-| **Aprovado** | `/tasks` | GET | 200 OK | 9 tasks listed | 9 tarefas listadas |
-| **Aprovado** | `/tasks/1` | GET | 200 OK | Task #1 returned | Tarefa #1 retornada |
-| **Aprovado** | `/tasks` | POST | 200 OK | Task #10 created | Tarefa #10 criada |
-| **Aprovado** | `/tasks/10` | PUT | 200 OK | Task #10 updated | Tarefa #10 atualizada |
-| **Aprovado** | `/tasks/10` | DELETE | 200 OK | Task #10 deleted | Tarefa #10 deletada |
-| **Aprovado** | `/report` | GET | 200 OK | Lambda returned stats | Lambda retornou estatísticas |
+| Test | Endpoint | Method | Status | Result |
+|:---:|:---:|:---:|:---:|:---|
+| **Passed** | `/tasks` | GET | 200 OK | 9 tasks listed |
+| **Passed** | `/tasks/1` | GET | 200 OK | Task #1 returned |
+| **Passed** | `/tasks` | POST | 200 OK | Task #10 created |
+| **Passed** | `/tasks/10` | PUT | 200 OK | Task #10 updated |
+| **Passed** | `/tasks/10` | DELETE | 200 OK | Task #10 deleted |
+| **Passed** | `/report` | GET | 200 OK | Lambda returned stats |
 
 </div>
 
-### Estatísticas do Sistema (via Lambda) | System Statistics (via Lambda)
+### System Statistics (via Lambda)
 
 ```json
 {
@@ -427,239 +366,211 @@ curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod/report
 }
 ```
 
-## Guia de Replicação | Replication Guide
+## Replication Guide
 
-### Pré-requisitos | Prerequisites
+### Prerequisites
 
 <div align="center">
 
-| Requirement / Requisito | Description EN | Descrição PT-BR |
-|:---:|:---|:---|
-| **AWS Account** | Active (Free Tier or standard) | Conta ativa (Free Tier ou padrão) |
-| **Git** | Version control | Controle de versão |
-| **SSH Client** | For EC2 connection | Para conexão com EC2 |
-| **REST Client** | Postman/Insomnia/curl | Postman/Insomnia/curl |
+| Requirement | Description |
+|:---:|:---|
+| **AWS Account** | Active (Free Tier or standard) |
+| **Git** | Version control |
+| **SSH Client** | For EC2 connection |
+| **REST Client** | Postman/Insomnia/curl |
 
 </div>
 
-### Guia Completo de Implementação | Complete Implementation Guide
+### Complete Implementation Guide
 
-<div align="left">
-
-**PT-BR:**  
-Este repositório contém um guia passo a passo completo para replicar toda a infraestrutura:
-
-**EN:**  
 This repository contains a complete step-by-step guide to replicate the entire infrastructure:
-
-</div>
 
 <p align="center">
   <a href="docs/GUIA_IMPLANTACAO.md">
-    <img src="https://img.shields.io/badge/📘_GUIA_COMPLETO-FF6600?style=for-the-badge&logo=readthedocs&logoColor=white" alt="Complete Guide"/>
+    <img src="https://img.shields.io/badge/📘_COMPLETE_GUIDE-FF6600?style=for-the-badge&logo=readthedocs&logoColor=white" alt="Complete Guide"/>
   </a>
 </p>
 
 <div align="center">
 
-### O Guia Inclui | Guide Includes
+### Guide Includes
 
-| Phase / Fase | Content EN | Conteúdo PT-BR |
-|:---:|:---|:---|
-| **1** | RDS MySQL Configuration | Configuração do RDS MySQL |
-| **2** | EC2 with Docker Setup | Configuração do EC2 com Docker |
-| **3** | Lambda Function Creation | Criação da Função Lambda |
-| **4** | API Gateway Configuration | Configuração do API Gateway |
-| **5** | Integration Tests | Testes de Integração |
+| Phase | Content |
+|:---:|:---|
+| **1** | RDS MySQL Configuration |
+| **2** | EC2 with Docker Setup |
+| **3** | Lambda Function Creation |
+| **4** | API Gateway Configuration |
+| **5** | Integration Tests |
 
 </div>
 
-### Desenvolvimento Local | Local Development
+### Local Development
 
-<div align="left">
-
-**PT-BR:**  
-Para testar localmente antes do deploy na AWS:
-
-**EN:**  
 To test locally before deploying to AWS:
 
-</div>
-
 ```bash
-# Clonar repositório
+# Clone repository
 git clone https://github.com/matheussricardoo/TasksCrudAWS.git
 cd TasksCrudAWS
 
-# Configurar variáveis de ambiente
+# Configure environment variables
 cp .env.example .env
-# Editar .env com suas credenciais
+# Edit .env with your credentials
 
-# Iniciar ambiente com Docker Compose
+# Start environment with Docker Compose
 docker-compose up -d
 
-# Aguardar inicialização
+# Wait for initialization
 docker-compose logs -f
 
-# Testar API
+# Test API
 curl http://localhost:8080/tasks
 ```
 
 <p align="center">
-  <b>API rodando em / API running at:</b> <code>http://localhost:8080</code>
+  <b>API running at:</b> <code>http://localhost:8080</code>
 </p>
 
-## Estrutura do Projeto | Project Structure
+## Project Structure
 
 ```
 TasksCrudAWS/
 │
-├── src/                        # Código-fonte da aplicação
-│   ├── app.py                  # API Flask completa (CRUD + validações)
-│   ├── lambda_report.py        # Função Lambda para relatórios
-│   └── requirements.txt        # Dependências Python
+├── src/                        # Application source code
+│   ├── app.py                  # Complete Flask API (CRUD + validation)
+│   ├── lambda_report.py        # Lambda function for reports
+│   └── requirements.txt        # Python dependencies
 │
-├── deployment/                 # Arquivos de implantação
-│   ├── Dockerfile              # Container da API Flask
-│   ├── docker-compose.yml      # Ambiente local (MySQL + API)
+├── deployment/                 # Deployment files
+│   ├── Dockerfile              # Flask API container
+│   ├── docker-compose.yml      # Local environment (MySQL + API)
 │   └── sql/
-│       └── schema.sql          # Schema do banco MySQL
+│       └── schema.sql          # MySQL database schema
 │
-├── tests/                      # Scripts de teste e deploy
+├── tests/                      # Test and deploy scripts
 │   └── scripts/
-│       ├── deploy.sh           # Script de deploy (Linux/Mac)
-│       ├── deploy.ps1          # Script de deploy (Windows)
-│       ├── test-api.sh         # Testes automatizados (Linux/Mac)
-│       ├── test-api.ps1        # Testes automatizados (Windows)
-│       └── test-api-simple.ps1 # Testes simples (Windows)
+│       ├── deploy.sh           # Deploy script (Linux/Mac)
+│       ├── deploy.ps1          # Deploy script (Windows)
+│       ├── test-api.sh         # Automated tests (Linux/Mac)
+│       ├── test-api.ps1        # Automated tests (Windows)
+│       └── test-api-simple.ps1 # Simple tests (Windows)
 │
-├── docs/                       # Documentação
-│   └── REFERENCIA_API.md       # Documentação completa da API
+├── docs/                       # Documentation
+│   └── REFERENCIA_API.md       # Complete API documentation
 │
-├── .env.example                # Template de variáveis de ambiente
-├── .gitignore                  # Arquivos ignorados pelo Git
-├── tasks-key.pem               # Chave SSH do EC2 (não commitado)
-├── docs/GUIA_IMPLANTACAO.md         # Guia completo de implantação
-├── README.md                   # Este arquivo
-└── LICENSE                     # Licença MIT
+├── .env.example                # Environment variables template
+├── .gitignore                  # Git ignored files
+├── tasks-key.pem               # EC2 SSH key (not committed)
+├── docs/GUIA_IMPLANTACAO.md    # Complete deployment guide
+├── README.md                   # This file
+└── LICENSE                     # MIT License
 ```
 
 <div align="center">
 
-### Arquivos Essenciais para Replicação | Essential Files for Replication
+### Essential Files for Replication
 
-| File / Arquivo | Purpose EN | Propósito PT-BR |
-|:---:|:---|:---|
-| `src/app.py` | API code | Código da API |
-| `src/lambda_report.py` | Lambda code | Código da Lambda |
-| `deployment/Dockerfile` + `deployment/docker-compose.yml` | Containerization | Containerização |
-| `deployment/sql/schema.sql` | Database schema | Schema do banco |
-| `docs/GUIA_IMPLANTACAO.md` | Implementation guide | Guia de implementação |
-
-</div>
-
-## Documentação Adicional | Additional Documentation
-
-<div align="center">
-
-| Documento / Document | Descrição PT-BR | Description EN |
-|:---:|:---|:---|
-| [docs/GUIA_IMPLANTACAO.md](docs/GUIA_IMPLANTACAO.md) | Guia completo de replicação | Complete replication guide |
-| [REFERENCIA_API.md](docs/REFERENCIA_API.md) | Documentação da API REST | REST API documentation |
+| File | Purpose |
+|:---:|:---|
+| `src/app.py` | API code |
+| `src/lambda_report.py` | Lambda code |
+| `deployment/Dockerfile` + `deployment/docker-compose.yml` | Containerization |
+| `deployment/sql/schema.sql` | Database schema |
+| `docs/GUIA_IMPLANTACAO.md` | Implementation guide |
 
 </div>
 
-## Segurança e Boas Práticas | Security & Best Practices
-
-### Implementado | Implemented
+## Additional Documentation
 
 <div align="center">
 
-| Security Feature / Recurso | Description EN | Descrição PT-BR |
-|:---:|:---|:---|
-| **RDS Private Subnet** | Database not exposed to Internet | Banco não exposto à Internet |
-| **Restrictive Security Groups** | Only necessary ports | Apenas portas necessárias |
-| **Environment Variables** | No hardcoded credentials | Sem credenciais hardcoded |
-| **API Gateway Proxy** | Backend protected | Backend protegido |
-| **CORS Configured** | Security headers | Headers de segurança |
-| **Input Validation** | Data sanitization | Sanitização de dados |
-| **Error Handling** | Appropriate error messages | Mensagens de erro apropriadas |
-| **Structured Logs** | CloudWatch + Docker logs | CloudWatch + logs Docker |
+| Document | Description |
+|:---:|:---|
+| [docs/GUIA_IMPLANTACAO.md](docs/GUIA_IMPLANTACAO.md) | Complete replication guide |
+| [REFERENCIA_API.md](docs/REFERENCIA_API.md) | REST API documentation |
 
 </div>
 
-### Recomendações para Produção | Production Recommendations
+## Security & Best Practices
+
+### Implemented
 
 <div align="center">
 
-| Priority / Prioridade | Feature EN | Funcionalidade PT-BR |
-|:---:|:---|:---|
-| **High** | AWS Secrets Manager | Gerenciamento de credenciais |
-| **High** | JWT/OAuth Authentication | Autenticação de usuários |
-| **Medium** | Rate Limiting | Proteção contra abuso |
-| **Medium** | CloudWatch Alarms | Monitoramento proativo |
-| **Low** | Auto Scaling | Escalabilidade automática |
-| **Low** | Automated Backups | Recuperação de desastres |
-| **Low** | CloudFront CDN | Cache e performance global |
+| Security Feature | Description |
+|:---:|:---|
+| **RDS Private Subnet** | Database not exposed to Internet |
+| **Restrictive Security Groups** | Only necessary ports |
+| **Environment Variables** | No hardcoded credentials |
+| **API Gateway Proxy** | Backend protected |
+| **CORS Configured** | Security headers |
+| **Input Validation** | Data sanitization |
+| **Error Handling** | Appropriate error messages |
+| **Structured Logs** | CloudWatch + Docker logs |
 
 </div>
 
-## Estimativa de Custos | Cost Estimate
-
-### AWS Free Tier (12 meses / 12 months)
+### Production Recommendations
 
 <div align="center">
 
-| Service / Serviço | Free Tier Limit | Monthly Cost / Custo Mensal |
+| Priority | Feature |
+|:---:|:---|
+| **High** | AWS Secrets Manager |
+| **High** | JWT/OAuth Authentication |
+| **Medium** | Rate Limiting |
+| **Medium** | CloudWatch Alarms |
+| **Low** | Auto Scaling |
+| **Low** | Automated Backups |
+| **Low** | CloudFront CDN |
+
+</div>
+
+## Cost Estimate
+
+### AWS Free Tier (12 months)
+
+<div align="center">
+
+| Service | Free Tier Limit | Monthly Cost |
 |:---:|:---|:---:|
-| **EC2 t2.micro** | 750 horas/mês · 750 hours/month | **GRÁTIS / FREE** |
-| **RDS db.t3.micro** | 750 horas/mês · 750 hours/month | **GRÁTIS / FREE** |
-| **Lambda** | 1M requisições/mês · 1M requests/month | **GRÁTIS / FREE** |
-| **API Gateway** | 1M chamadas/mês · 1M calls/month | **GRÁTIS / FREE** |
-| **Total** | - | **R$ 0/mês · $0/month** |
+| **EC2 t2.micro** | 750 hours/month | **FREE** |
+| **RDS db.t3.micro** | 750 hours/month | **FREE** |
+| **Lambda** | 1M requests/month | **FREE** |
+| **API Gateway** | 1M calls/month | **FREE** |
+| **Total** | - | **$0/month** |
 
 </div>
 
-### Após Free Tier (região us-east-1 / us-east-1 region)
+### After Free Tier (us-east-1 region)
 
 <div align="center">
 
-| Service / Serviço | Monthly Cost / Custo Mensal |
+| Service | Monthly Cost |
 |:---:|:---:|
-| **EC2 t2.micro** | ~R$ 42/mês · ~$8/month |
-| **RDS db.t3.micro** | ~R$ 75/mês · ~$15/month |
-| **Lambda** (100K req/mês) | ~R$ 1/mês · ~$0.20/month |
-| **API Gateway** (100K req/mês) | ~R$ 1,75/mês · ~$0.35/month |
-| **Transferência de Dados / Data Transfer** | ~R$ 5/mês · ~$1/month |
-| **Total Estimado** | **~R$ 125/mês · ~$25/month** |
+| **EC2 t2.micro** | ~$8/month |
+| **RDS db.t3.micro** | ~$15/month |
+| **Lambda** (100K req/month) | ~$0.20/month |
+| **API Gateway** (100K req/month) | ~$0.35/month |
+| **Data Transfer** | ~$1/month |
+| **Estimated Total** | **~$25/month** |
 
 </div>
 
-> **Dica PT-BR:** Para reduzir custos, use **RDS Aurora Serverless** ou **DynamoDB** no lugar do RDS tradicional.
+> **Tip:** To reduce costs, use **RDS Aurora Serverless** or **DynamoDB** instead of traditional RDS.
 
-> **Tip EN:** To reduce costs, use **RDS Aurora Serverless** or **DynamoDB** instead of traditional RDS.
-
-## Perguntas Frequentes | FAQ
+## FAQ
 
 <div align="center">
 
-### Como fazer debug na AWS? | How to debug on AWS?
+### How to debug on AWS?
 
 </div>
 
 <div align="left">
 
-**PT-BR: CloudWatch Logs:**
-```bash
-# Logs da Lambda
-aws logs tail /aws/lambda/tasks-report --follow
-
-# Logs do EC2 (via SSH)
-ssh -i tasks-key.pem ec2-user@SEU-IP-EC2
-docker logs -f tasks-api
-```
-
-**EN: CloudWatch Logs:**
+**CloudWatch Logs:**
 ```bash
 # Lambda logs
 aws logs tail /aws/lambda/tasks-report --follow
@@ -671,7 +582,7 @@ docker logs -f tasks-api
 
 </div>
 
-## Licença | License
+## License
 
 <div align="center">
 
@@ -680,15 +591,12 @@ docker logs -f tasks-api
 </a>
 
 <p>
-  <b>EN:</b> This project is licensed under the MIT License. See the <a href="LICENSE">LICENSE</a> file for details.<br>
-  <b>PT-BR:</b> Este projeto está licenciado sob a Licença MIT. Veja o arquivo <a href="LICENSE">LICENSE</a> para mais detalhes.
+  <b>This project is licensed under the MIT License. See the <a href="LICENSE">LICENSE</a> file for details.</b>
 </p>
 
 </div>
 
-## Autores
-
-### Authors | Autores
+## Authors
 
 <div align="center">
 <table>
@@ -727,12 +635,11 @@ docker logs -f tasks-api
 </table>
 </div>
 
-## Suporte
+## Support
 
 <div align="center">
 
-**EN:** Found a problem or have questions?  
-**PT-BR:** Encontrou algum problema ou tem dúvidas?
+**Found a problem or have questions?**
 
 **Issues**: [GitHub Issues](https://github.com/matheussricardoo/TasksCrudAWS/issues)
 
