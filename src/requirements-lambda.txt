@@ -1,0 +1,2 @@
+# Report-handler HTTP client.
+urllib3==2.8.0

@@ -68,5 +68,71 @@ class ReportTests(unittest.TestCase):
         self.assertFalse(json.loads(result['body'])['success'])
 
 
+
+
+class DatabaseBoundaryTests(unittest.TestCase):
+    def test_malformed_payloads_are_400_without_database_access(self):
+        client = api.app.test_client()
+        with patch.object(api, 'get_db_connection') as connect:
+            for payload in ([], {'title': ' '}, {'title': 'x' * 201}, {'title': 123}, {'title': 'ok', 'description': []}):
+                with self.subTest(payload=payload):
+                    self.assertEqual(client.post('/tasks', json=payload).status_code, 400)
+            self.assertEqual(client.post('/tasks', data='{', content_type='application/json').status_code, 400)
+            self.assertEqual(client.put('/tasks/1', json={'title': ''}).status_code, 400)
+            connect.assert_not_called()
+
+    def test_database_failure_rolls_back_and_closes_connection(self):
+        from unittest.mock import MagicMock
+        connection = MagicMock()
+        cursor = connection.cursor.return_value.__enter__.return_value
+        cursor.execute.side_effect = RuntimeError('secret database details')
+        with patch.object(api, 'get_db_connection', return_value=connection):
+            result = api.app.test_client().get('/tasks')
+        self.assertEqual(result.status_code, 500)
+        self.assertNotIn('secret', result.get_data(as_text=True))
+        connection.rollback.assert_called_once()
+        connection.close.assert_called_once()
+
+    def test_filters_are_parameterized_and_connection_is_closed(self):
+        from unittest.mock import MagicMock
+        connection = MagicMock()
+        cursor = connection.cursor.return_value.__enter__.return_value
+        cursor.fetchall.return_value = []
+        with patch.object(api, 'get_db_connection', return_value=connection):
+            result = api.app.test_client().get('/tasks?status=pending&priority=high')
+        self.assertEqual(result.status_code, 200)
+        query, params = cursor.execute.call_args.args
+        self.assertIn('status = %s', query)
+        self.assertEqual(params, ['pending', 'high'])
+        connection.close.assert_called_once()
+
+
+
+
+class WriteBoundaryTests(unittest.TestCase):
+    def test_valid_creation_commits_and_closes(self):
+        from unittest.mock import MagicMock
+        connection = MagicMock()
+        cursor = connection.cursor.return_value.__enter__.return_value
+        cursor.lastrowid = 42
+        cursor.fetchone.return_value = {'id': 42, 'title': 'New task', 'status': 'pending', 'priority': 'medium'}
+        with patch.object(api, 'get_db_connection', return_value=connection):
+            result = api.app.test_client().post('/tasks', json={'title': 'New task'})
+        self.assertEqual(result.status_code, 201)
+        self.assertEqual(result.json['data']['id'], 42)
+        self.assertEqual(cursor.execute.call_args_list[0].args[1], ('New task', '', 'pending', 'medium'))
+        connection.commit.assert_called_once()
+        connection.close.assert_called_once()
+
+    def test_deleting_missing_task_is_404_and_closes(self):
+        from unittest.mock import MagicMock
+        connection = MagicMock()
+        connection.cursor.return_value.__enter__.return_value.rowcount = 0
+        with patch.object(api, 'get_db_connection', return_value=connection):
+            result = api.app.test_client().delete('/tasks/999')
+        self.assertEqual(result.status_code, 404)
+        connection.close.assert_called_once()
+
+
 if __name__ == '__main__':
     unittest.main()

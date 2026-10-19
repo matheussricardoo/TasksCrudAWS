@@ -66,7 +66,7 @@ Wait for MySQL initialization and a successful `/health` response before testing
 
 **No AWS account, RDS instance, API key, or paid cloud service is required for this local stack.** It downloads container images and Python packages. Compose supplies local database settings directly; copying `.env.example` is unnecessary and does not override these settings. That template is for an external database deployment.
 
-The committed database passwords are development defaults. The current Compose ports are published on all host interfaces; use a trusted local environment and do not expose this setup publicly.
+The committed database passwords are development defaults. Compose host ports bind to 127.0.0.1 for local use. This is a development environment, not a public deployment configuration.
 
 ```bash
 # Stop and remove containers; preserve database data.
@@ -101,12 +101,12 @@ curl -i -X POST http://localhost:8080/tasks \
 
 ### Isolated tests and local report invocation
 
-Python 3.9+ and a virtual environment are needed for these commands. `urllib3` is installed separately because the Lambda dependency is not included in the API requirements.
+Python 3.12+ and a virtual environment are needed for these commands. The report dependency is listed separately from the API requirements.
 
 ```bash
 python3 -m venv .venv
 . .venv/bin/activate
-python -m pip install -r src/requirements.txt urllib3==2.2.3
+python -m pip install -r src/requirements.txt -r src/requirements-lambda.txt
 python -m unittest discover -s tests -p 'test_*.py' -v
 
 # Requires the local API and MySQL above; does not invoke AWS.
@@ -115,7 +115,7 @@ API_URL=http://localhost:8080/tasks python src/lambda_report.py
 
 The handler returns an API Gateway response envelope whose `body` is a JSON string. Direct invocation prints this result; it does not create a local `/report` endpoint.
 
-The isolated tests mock database/HTTP boundaries and cover validation, database failure reporting, report calculations, an empty task list, and upstream failures. They do not prove MySQL integration or AWS deployment. The older scripts in `tests/scripts/` are manual helpers; `test-api.sh` prints responses without asserting every result and should not be treated as evidence that all tests passed.
+The isolated tests mock database/HTTP boundaries and cover validation, database failure reporting, report calculations, an empty task list, and upstream failures. They do not prove MySQL integration or AWS deployment. The API test scripts wrap `tests/smoke_api.py`, which asserts HTTP status/data and deletes only the task ID created by its own run. Run `bash tests/scripts/test-api.sh` only after starting the local stack. It was not executed against MySQL during this review.
 
 **Verification during this documentation review:** Compose configuration validated and isolated Python tests executed. Full container build, database initialization, HTTP CRUD integration and live report invocation remain unverified because the Docker daemon was unavailable. No AWS resources were created or contacted to validate a deployment.
 
@@ -123,8 +123,8 @@ The isolated tests mock database/HTTP boundaries and cover validation, database 
 
 - No authentication, authorization, per-user task isolation or application rate limiting.
 - CORS is permissive; it is not an access-control mechanism.
-- Input validation is partial: types, whitespace-only titles and title length need consistent handling; malformed JSON can become a 500 response.
-- Error responses can expose internal exception details. Connection cleanup and transaction rollback need improvement on failure paths.
+- Supported fields are validated, including malformed JSON, non-blank titles, title length, status and priority.
+- Database exceptions are logged server-side. Connections are closed on failures and failed transactions are rolled back; integration with a real MySQL server remains to be verified.
 - No pagination; list and report operations load all tasks.
 - Development credentials are present in Compose and application/container defaults. Secret management and configuration validation are future work.
 - No automated deployment pipeline, infrastructure as code, or demonstrated production monitoring, backup recovery or load testing.
@@ -144,8 +144,8 @@ Cloud deployment is optional and may incur charges. The repository does not esta
 | `deployment/sql/schema.sql` | Schema, indexes and sample tasks |
 | `tests/test_behaviors.py` | Isolated behavior tests |
 | `tests/scripts/` | Existing manual API and deployment helpers |
-| [API reference](docs/REFERENCIA_API.md) | Extended examples; see implementation notes at the top |
-| [AWS deployment guide](docs/GUIA_IMPLANTACAO.md) | Academic cloud setup; not required locally |
+| [API reference](docs/API_REFERENCE.md) | Extended examples; current request/response contract |
+| [AWS deployment guide](docs/AWS_DEPLOYMENT.md) | Academic cloud setup; not required locally |
 
 ## Team and contributions
 
