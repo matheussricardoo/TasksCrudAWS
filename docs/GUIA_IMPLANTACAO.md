@@ -17,6 +17,8 @@
 
 </div>
 
+> **Contexto acadêmico:** este guia registra a configuração proposta no projeto; não comprova recursos ativos, segurança atual ou disponibilidade de uma demonstração. Não é necessário para execução local. Criar recursos pode gerar custos; referências a Free Tier abaixo são históricas e não garantem gratuidade. Scripts de deploy não foram executados nesta revisão.
+
 ## Visão Geral
 
 Este guia fornece instruções passo a passo para implantar a infraestrutura completa da API CRUD de Tarefas na AWS. A implantação inclui EC2 com Docker, RDS MySQL, função Lambda e API Gateway.
@@ -247,7 +249,7 @@ Agora que o RDS está configurado e o `.env` criado, podemos construir e rodar o
 ```bash
 # Ainda no diretório TasksCrudAWS no EC2
 # Construir imagem Docker
-docker build -t tasks-api:latest .
+docker build -t tasks-api:latest -f deployment/Dockerfile .
 
 # Executar container
 docker run -d \
@@ -587,7 +589,7 @@ curl $API_URL/report
 
 ### Verificar Resultados
 
-Todos os endpoints devem retornar HTTP 200 e respostas JSON apropriadas.
+Criação deve retornar HTTP 201; leitura, atualização, exclusão e relatório bem-sucedidos retornam HTTP 200. Recurso inexistente retorna 404.
 
 ## Solução de Problemas
 
@@ -637,7 +639,7 @@ cd TasksCrudAWS
 git pull origin main
 
 # Reconstruir e reiniciar container
-docker build -t tasks-api:latest .
+docker build -t tasks-api:latest -f deployment/Dockerfile .
 docker stop tasks-api
 docker rm tasks-api
 docker run -d \

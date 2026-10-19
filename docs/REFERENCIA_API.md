@@ -17,11 +17,13 @@
 
 </div>
 
+> **Notas da revisão:** os exemplos abaixo são ilustrativos, não resultados de testes atuais. O Compose serve apenas a API Flask; `/report` exige integração separada com Lambda. O handler retorna `body` como string JSON, embora o exemplo abaixo o mostre expandido. As mensagens CRUD atuais estão em inglês; datas são serializadas pelo Flask e não necessariamente no formato ISO mostrado. O limite de 200 caracteres vem do schema, sem validação explícita na API. JSON malformado pode retornar 500 e nem todo erro segue o mesmo envelope.
+
 ## Visão Geral
 
 API RESTful para gerenciamento de tarefas com operações CRUD completas. Desenvolvida com Flask e Python, implantada na infraestrutura AWS.
 
-**URL Base (Produção)**: `https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod`  
+**URL de exemplo AWS (disponibilidade não confirmada)**: `https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/prod`
 **URL Base (Local)**: `http://localhost:8080`
 
 ## Autenticação

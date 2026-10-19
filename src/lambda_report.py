@@ -155,7 +155,7 @@ if __name__ == '__main__':
     
     # Simular contexto do Lambda
     class TestContext:
-        request_id = 'test-local-123'
+        aws_request_id = 'test-local-123'
     
     # Executar handler
     result = lambda_handler(test_event, TestContext())
